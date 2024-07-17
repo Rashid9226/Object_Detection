@@ -5,7 +5,7 @@ import numpy as np
 
 st.title("Real-Time Object Detection")
 
-url = st.text_input("Enter Video URL", value="http://192.168.50.145:8080/video")
+url = st.text_input("Enter Video URL", help="Use IP camera address like...'http://192.168.50.145:8080/video'")
 
 if st.button('Submit'):
     cap = cv2.VideoCapture(url)
