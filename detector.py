@@ -1,7 +1,6 @@
 import cv2
 import streamlit as st
 from PIL import Image
-import numpy as np
 
 st.title("Real-Time Object Detection")
 
@@ -52,8 +51,5 @@ if st.button('Submit'):
         img_pil = Image.fromarray(img_rgb)
         frame_placeholder.image(img_pil)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
     cap.release()
-    cv2.destroyAllWindows()
+    # No need for cv2.destroyAllWindows() in Streamlit
