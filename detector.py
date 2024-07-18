@@ -1,3 +1,5 @@
+import sys
+import os
 import cv2
 import streamlit as st
 from PIL import Image
@@ -5,10 +7,16 @@ import numpy as np
 
 st.title("Real-Time Object Detection")
 
+# Debugging: Print Python version, OpenCV version, and environment variables
+st.write("Python version:", sys.version)
+st.write("OpenCV version:", cv2.__version__)
+st.write("Environment Variables:", os.environ)
+
 url = st.text_input("Enter Video URL", help="Use IP camera address like...'http://192.168.50.145:8080/video'")
 
 if st.button('Submit'):
     cap = cv2.VideoCapture(url)
+    st.write("cap:", cap)
 
     if not cap.isOpened():
         st.error("Error: Could not open video stream.")
@@ -52,8 +60,5 @@ if st.button('Submit'):
         img_pil = Image.fromarray(img_rgb)
         frame_placeholder.image(img_pil)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
     cap.release()
-    # cv2.destroyAllWindows()
+    
