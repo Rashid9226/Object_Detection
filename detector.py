@@ -2,18 +2,27 @@ import cv2
 import streamlit as st
 from PIL import Image
 import numpy as np
+import time
 
 st.title("Real-Time Object Detection")
 
 url = st.text_input("Enter Video URL", help="Use IP camera address like...'http://192.168.50.145:8080/video'")
 
+def check_video_stream(url):
+    cap = cv2.VideoCapture(url)
+    for i in range(10):
+        if cap.isOpened():
+            return cap
+        time.sleep(1)
+    return None
+
 if st.button('Submit'):
     if url.strip() == "":
         st.error("Error: Please enter a valid video URL.")
     else:
-        cap = cv2.VideoCapture(url)
+        cap = check_video_stream(url)
 
-        if not cap.isOpened():
+        if cap is None or not cap.isOpened():
             st.error("Sorry, Could not open video stream. Please check the URL and try again.")
         else:
             st.success("Video stream opened successfully!")
@@ -56,4 +65,4 @@ if st.button('Submit'):
                 frame_placeholder.image(img_pil)
 
             cap.release()
-            # Remove cv2.destroyAllWindows() since it’s not needed in Streamlit
+            # Remove cv2.destroyAllWindows()
