@@ -17,6 +17,9 @@ if uploaded_file is not None:
     st.image(img, caption='Uploaded Image.', use_column_width=True)
     st.write("")
 
+    # Convert image to BGR format (required by OpenCV)
+    img_bgr = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
     # Load class names
     class_names = []
     class_file = 'coco.names'
@@ -34,17 +37,17 @@ if uploaded_file is not None:
     net.setInputSwapRB(True)
 
     # Perform object detection
-    class_ids, confs, bbox = net.detect(img, confThreshold=0.5)
+    class_ids, confs, bbox = net.detect(img_bgr, confThreshold=0.5)
 
     # Draw bounding boxes
     if len(class_ids) != 0:
         for class_id, confidence, box in zip(class_ids.flatten(), confs.flatten(), bbox):
-            cv2.rectangle(img, box, color=(0, 255, 0), thickness=2)
-            cv2.putText(img, class_names[class_id - 1], (box[0] + 10, box[1] + 30), cv2.FONT_HERSHEY_COMPLEX, 1,
+            cv2.rectangle(img_bgr, box, color=(0, 255, 0), thickness=2)
+            cv2.putText(img_bgr, class_names[class_id - 1], (box[0] + 10, box[1] + 30), cv2.FONT_HERSHEY_COMPLEX, 1,
                         (0, 255, 0), 2)
 
     # Convert the image back to RGB for displaying with PIL
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     img_pil = Image.fromarray(img_rgb)
 
     # Display the output image
