@@ -14,7 +14,7 @@ if st.button('Submit'):
         cap = cv2.VideoCapture(url)
 
         if not cap.isOpened():
-            st.error("Error: Could not open video stream. Please check the URL and try again.")
+            st.error("Sorry, Could not open video stream. Please check the URL and try again.")
         else:
             st.success("Video stream opened successfully!")
 
