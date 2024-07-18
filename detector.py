@@ -55,5 +55,9 @@ if st.button('Submit'):
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+<<<<<<< HEAD
     #cap.release()
+=======
+    cap.release()
+>>>>>>> b191da5b3a0f2342942523e51f935ece54c3abf9
     #cv2.destroyAllWindows()
