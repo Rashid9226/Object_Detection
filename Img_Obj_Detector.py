@@ -2,6 +2,7 @@ import cv2
 import streamlit as st
 from PIL import Image
 import numpy as np
+import os
 
 st.title("Object Detection from Image")
 
